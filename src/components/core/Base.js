@@ -1,24 +1,36 @@
 import {Navbar} from './Navbar';
 import { Footer } from './Footer';
-import { Card } from './Card';
+// import { Card } from './Card';
 
 import offerPoster from '../../assets/offer-poster.jpg';
+import { CardSlides } from './CardSlides';
+
+//redux
+//import {useSelector } from 'react-redux/es/hooks/useSelector';
+//import {getUser} from '../../redux/userSlice';
+// import { createSelector } from '@reduxjs/toolkit';
 
 export const Base=()=>{
+
+   // const temp=useSelector(getUser);
+    //const user=temp.payload.user.userDetails;
+    //const isLoggedIn=temp.payload.user.loggedIn;
+
     return(
         <>
         <Navbar/>
         <div className='w-100 flex justify-center mx-5 sm:mx-0'>
-            <div className='text-center mt-5 w-fit bg-blue-200 p-2 sm:p-5 bg-cover rounded sm:flex sm:items-center sm:justify-center'
+            <div className='text-center mt-5 w-fit bg-blue-200 p-2 sm:p-5 bg-cover rounded sm:flex sm:items-center sm:justify-center relative'
             style={{backgroundImage:`url(${offerPoster})`}} >
-                <p className='text-black font-bold sm:text-xl text-xs'>**Mega Offer** </p>
+                <img src={require('../../assets/offer-ribbon.png')} width="50px" height="50px" className='absolute -left-5 -top-4' alt="offer-ribbon"/>
+                <p className='text-black font-bold sm:text-xl text-xs '>**Mega Offer** </p>
                 <p className='text-black font-bold sm:text-xl text-xs'> &nbsp;&nbsp; Flat 5% discount on all cars. Hurry up💜💜</p>
             </div>
         </div>
         
         <div className="flex items-center w-100 justify-center mt-5 sm:mt-1" >
-          <img src={require('../../assets/poster-2.png')} width="32%" height="40%" className=''/>
-          <img src={require('../../assets/poster-6.jpg')} width="50%" height="50%" className=''/>
+          <img src={require('../../assets/poster-2.png')} width="32%" height="40%" className='' alt="poster-1"/>
+          <img src={require('../../assets/poster-6.jpg')} width="50%" height="50%" className='' alt="poster-2"/>
         </div>
 
         <div className='p-2 flex flex-col space-y-2 sm:space-y-0 mx-5 sm:mx-0 sm:flex sm:flex-row sm:justify-center sm:space-x-6 py-6
@@ -66,21 +78,15 @@ export const Base=()=>{
             
         </div>
         <div className='w-100 mt-5'>
-            <img src={require('../../assets/poster-8.webp')}/>
+            <img src={require('../../assets/poster-8.webp')} alt="poster-3"/>
         </div>
         <div className='mt-20 mx-5 sm:mx-0'>  
         <p className='text-xl sm:text-2xl font-semibold text-center font-sans'>Pick  your favourite car.
         Offer ends soon⏳</p> 
             <div className='flex flex-wrap justify-center items-center mt-5 '>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <p className='text-blue-800 font-medium text-end '>View all </p>
+                <CardSlides/>   
             </div>
+            <p className='text-blue-800 font-medium text-end mr-10'>View all </p>
         </div>
         <Footer/>
         </>
