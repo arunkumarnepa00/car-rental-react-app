@@ -3,7 +3,7 @@ import { Card } from "../core/Card";
 import {createProduct} from './apihelper/adminCalls';
 import {getAllProducts} from '../core/apihelper/coreDbCalls';
 import { Buffer } from 'buffer';
-import { updateProduct } from "./apihelper/adminCalls";
+//import { updateProduct } from "./apihelper/adminCalls";
 
 //redux
 import {useSelector } from 'react-redux';
