@@ -5,13 +5,13 @@ import { loginUser } from "./apihelper/authcalls";
 import { useNavigate } from "react-router-dom";
 
 //redux
-import { useDispatch } from 'react-redux';
-import {setUserId} from '../../redux/userSlice';
-import { setRole } from "../../redux/roleSlice";
+// import { useDispatch } from 'react-redux';
+// import {setUserId} from '../../redux/userSlice';
+// import { setRole } from "../../redux/roleSlice";
 
 export const Signin = () => {
 
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
 
   const [form,setForm]=useState({
@@ -34,9 +34,13 @@ export const Signin = () => {
     if(data.err){
        setError(data.err);
     }else{
-       setError(false);
-       dispatch(setUserId({userId:data.user._id}));
-       dispatch(setRole({role:data.user.role}));
+      setError(false);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role",data.user.role);
+   
+      //dispatch(setUserId({userId:data.user._id}));
+      //dispatch(setRole({role:data.user.role}));
+      
        navigate('/');
     }
   }

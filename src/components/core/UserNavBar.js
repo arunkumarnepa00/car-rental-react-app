@@ -8,7 +8,7 @@ export const UserNavBar=(props)=>{
     const userId=props.userId;
 
     const [user,setUser]=useState({});
-    console.log(user);
+    //console.log(user);
     useEffect(()=>{
         const getuserDetails=async()=>{
         const data=await getUserInfo(userId);
@@ -25,15 +25,16 @@ export const UserNavBar=(props)=>{
     let img;
     if(Object.keys(user).length>0){
         //const imgTag=document.getElementById('user-dp');
-        console.log(user.dp)
+        //console.log(user.dp)
         img=`data:${user.dp.contentType};base64,${Buffer.from(user.dp.data).toString('base64')}`
     } 
-    console.log(img)
+    //console.log(img)
+
     return (
     <>
-     <li className=''>
+     <li className='w-[25px] bg-cover'>
         <img src={img || require('../../assets/EmptyProfileDp.jpg')}
-        alt='user-profile' id="user-dp" className='rounded-full' width="50px" height="50px"/>
+        alt='user-profile' id="user-dp" className=''/>
       </li>
     </>
     )

@@ -1,24 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
+
 //redux
-import {useSelector,useDispatch } from 'react-redux';
-import {getUserId,setUserId} from '../../redux/userSlice';
-import {getRole,setRole} from '../../redux/roleSlice';
+import {useDispatch } from 'react-redux';
+import {setUserId} from '../../redux/userSlice';
+import {setRole} from '../../redux/roleSlice';
 
 import { UserNavBar } from './UserNavBar';
 
+import authentication from '../auth/apihelper/authentication';
+
 export const Navbar=()=>{
-
-
-  const temp=useSelector(getUserId);
-  const userId=temp.payload.user.userId;
+  const navigate = useNavigate();
   const dispatch=useDispatch();
+  
+  const [userId,setNavUserId]=useState();
+  const [userRole,setUserRole]=useState();
+  //const userId=useSelector(state=>state.user.userId);
+  //const userId=temp.payload.user.userId;
   //console.log(userId);
 
-  const temp1=useSelector(getRole);
-  const userRole=temp1.payload.role.role;
-  console.log(temp1);
+  
+  //const userRole=useSelector(state=>state.role);
+  //const userRole=temp1.payload.role.role;
+  //console.log(temp1);
+
+
 
   //-----for mobile view navbar open and close--------//
   const [emenu,setEMenu]=useState(false);
@@ -31,7 +39,30 @@ export const Navbar=()=>{
   }
   //-----for mobile view navbar open and close--------//
 
-  const navigate = useNavigate();
+
+  const setProperties=(user,role)=>{
+    if(user==='expired' && localStorage.getItem('token')){
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      dispatch(setUserId({userId:user}));
+      navigate('/signin');
+    }
+    if(user!==null){
+      dispatch(setUserId({userId:user}));
+      dispatch(setRole({role:role}));
+    }
+    setUserRole(role);
+    setNavUserId(user);
+  }
+  useEffect(()=>{
+    console.log('---------------------')
+    const user=authentication();
+    const role=localStorage.getItem('role');
+    setProperties(user,role);
+    console.log('navbar useeffect');
+  })
+
+  //console.log(typeof userRole);
 
     return(
         <>
@@ -75,13 +106,19 @@ export const Navbar=()=>{
             }{
               userId  &&
               <div className='flex sm:space-x-4 hidden sm:flex items-center'>
-                <li className='text-white cursor-pointer font-medium'
+                 <li className='text-white cursor-pointer font-medium hover:text-lg'
                  onClick={()=>{
-                  navigate(`/user/rentals/${userId}`)
+                  navigate(`/`)
+                }}>
+                   Home
+                </li>
+                <li className='text-white cursor-pointer font-medium hover:text-lg' 
+                 onClick={()=>{
+                  navigate(`/user/${userId}/myrentals/dashboard`)
                 }}>
                    MyRentals
                 </li>
-                {userRole && <li className='text-white cursor-pointer font-medium' 
+                {userRole==='1' && <li className='text-white cursor-pointer font-medium hover:text-lg' 
                   onClick={()=>{
                     navigate('/admin/dashboard')
                   }}>
@@ -90,9 +127,13 @@ export const Navbar=()=>{
                 {userId && <UserNavBar userId={userId} />}
                 <li className="rounded-md bg-white hover:bg-black text-black hover:text-white py-1 px-2 font-semibold text-lg cursor-pointer"
                   onClick={()=>{
-                    dispatch(setRole(0));
-                    dispatch(setUserId(''));
-                    navigate('/')
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('role');
+                    dispatch(setRole({role:0}));
+                    dispatch(setUserId({setUserId:''}));
+                    console.log('........logging off........');
+                    console.log('........redirecting........');
+                    navigate('/');
                   }}>logout</li>
               </div>
             }
@@ -118,13 +159,19 @@ export const Navbar=()=>{
             {
               userId  &&
               <div>
+                <li className='text-white cursor-pointer font-medium'
+                 onClick={()=>{
+                  navigate(`/`)
+                }}>
+                   Home
+                </li>
                 <li className='text-white py-1 px-2 cursor-pointer font-medium'
                  onClick={()=>{
-                  navigate(`/user/rentals/${userId}`)
+                  navigate(`/user/${userId}/myrentals/dashboard`)
                 }}>
                    MyRentals
                 </li>
-                {userRole && <li className='text-white py-1 px-2 cursor-pointer font-medium' 
+                {userRole==='1' && <li className='text-white py-1 px-2 cursor-pointer font-medium' 
                   onClick={()=>{
                     navigate('/admin/dashboard')
                   }}>
@@ -132,8 +179,10 @@ export const Navbar=()=>{
                 </li>}
                 <li className="text-white py-1 px-2 font-medium cursor-pointer"
                   onClick={()=>{
-                    dispatch(setRole(0));
-                    dispatch(setUserId(''));
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('role');
+                    dispatch(setRole({role:0}));
+                    dispatch(setUserId({setUserId:''}));
                     navigate('/')
                   }}>logout</li>
               </div>

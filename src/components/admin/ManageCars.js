@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../core/Card";
 import {createProduct} from './apihelper/adminCalls';
+import {getAllProducts} from '../core/apihelper/coreDbCalls';
+import { Buffer } from 'buffer';
+import { updateProduct } from "./apihelper/adminCalls";
 
 //redux
-import {getUserId} from '../../redux/userSlice';
 import {useSelector } from 'react-redux';
+import { getProduct } from "../rentals/apihelper/rentalDbcalls";
 
 export const ManageCars=()=>{
     
     //user id
-    const temp=useSelector(getUserId);
-    const userId=temp.payload.user.userId;
+    const userId=useSelector(state=>state.user.userId);
 
     //for showing and closing product form
     const [showAddForm,setShowAddForm]=useState(false);
@@ -21,6 +23,7 @@ export const ManageCars=()=>{
         setShowAddForm(false);
     }
 
+    //add product form state
     const [form,setForm]=useState({
         title:'',
         description:'',
@@ -36,7 +39,7 @@ export const ManageCars=()=>{
         numberOfPiecesAvailable:0,
         available:true
     })
-    console.log(form);
+    //console.log(form);
 
 
     const handleChange=(e)=>{
@@ -115,6 +118,112 @@ export const ManageCars=()=>{
         setForm({...form,productPoster:''});
     }
 
+
+    //re-load cars - on delete  
+    const[reload,setReload]=useState('')
+    const cardUpdateLoad=(deletedItem)=>{
+      console.log('im called....',deletedItem);
+      setReload(deletedItem);
+    }
+    //console.log(reload)
+    
+    //handling update
+    const [updateProduct,setUpdateProduct]=useState(false)
+    const handleUpdate=async(updateProdId)=>{
+      //console.log(updateProdId)
+      const data=await getProduct(updateProdId);
+      console.log(data)
+      if(data.err){
+         
+      }else{
+        setUpdateProduct(true)
+        setShowAddForm(true)
+        setForm({
+        title:data.msg.title,
+        description:data.msg.description,
+        mileage:data.msg.mileage,
+        age:data.msg.age,
+        pricePerHour:data.msg.pricePerHour,
+        pricePerDay:data.msg.pricePerDay,
+        gstTax:data.msg.gstTax,
+        location:data.msg.location, 
+        productPoster:{filepath:data.msg.productPoster.data,
+        mimetype:data.msg.productPoster.contentType},
+        numberOfPieces:data.msg.numberOfPieces,
+        numberOfPiecesAvailable:data.msg.numberOfPiecesAvailable,
+        available:data.msg.available?'YES':'NO'
+        }) 
+        //to avoid - getting null for mainposter 
+        setTimeout(()=>{
+          let previewTag2=document.getElementById('mainPoster');
+          previewTag2.src =`data:${data.msg.productPoster.contentType};base64,${Buffer.from(data.msg.productPoster.data).toString('base64')}`
+        },2000)
+      }
+    }
+    //console.log(form)
+    const handleUpdateButton=async(e)=>{
+      e.preventDefault();
+      try{
+            const formData = new FormData();
+            for (const key in form) {
+                const element = form[key];
+                if(key==='available'){
+                    if(element==='YES') formData.append(key,true)
+                    else formData.append(key,false)
+                }else{
+                    formData.append(key,element);
+                } 
+            }
+            const data=await updateProduct(formData,userId);
+            if(data && data.err){
+                setSuccess('');
+                setError(data.err);
+            }else{
+                setForm({
+                    title:'',
+                    description:'',
+                    mileage:0,
+                    age:0,
+                    pricePerHour:0,
+                    pricePerDay:0,
+                    gstTax:0,
+                    location:'', 
+                    productPoster:'',
+                    //productAdditionalPosters:[],
+                    numberOfPieces:0,
+                    numberOfPiecesAvailable:0,
+                    available:true
+                  })
+                setError('');
+                setSuccess(`${data.msg.title} is Updated`);
+                setTimeout(() => {
+                    setSuccess('');
+                }, 8000);
+          }
+
+      }
+      catch (error) {
+            console.log(error)
+      }
+    }
+
+    //loading products
+    const [products,setProducts]=useState()
+    useEffect(()=>{
+        const getInfo=async()=>{
+          const data=await getAllProducts();
+          if(data.err){
+
+          }else{
+            setProducts(data.msg)
+            setShowAddForm(false)
+          }
+        }
+        getInfo();
+    },[success,reload])
+    //console.log(products);
+    
+ 
     return(
         <div className="mt-2">
                <h1 className="font-bold text-xl text-center">Manage Cars</h1>
@@ -232,14 +341,28 @@ export const ManageCars=()=>{
                         </div>
                     </div> */}
                     <button className="rounded bg-lime-600 text-white p-2 mt-3 font-semibold"
-                    onClick={(e)=>handleSubmit(e)}>Submit</button>
+                    onClick={(e)=>{
+                      if(updateProduct){
+                        handleUpdateButton(e)
+                      }else{
+                        handleSubmit(e)
+                      }
+                    }}>{updateProduct?'Update':'Submit'}</button>
                </div>}
                <div className="mt-5 flex flex-wrap">
+                {
+                  products && products.length>0 && products.map((i,index)=>{
+                    return (
+                    <Card poster={i.productPoster} carname={i.title} price={i.pricePerDay} carAge={i.age} mileage={i.mileage}
+                     location={i.location} key={index} source='admin' id={i._id} cload={cardUpdateLoad} updateHandler={handleUpdate}/>
+                    )
+                  })
+                }
+                {/* <Card carname="Honda" price="18" carAge="1500" mileage="45" location="hyderabad"/>
                 <Card carname="Honda" price="18" carAge="1500" mileage="45" location="hyderabad"/>
                 <Card carname="Honda" price="18" carAge="1500" mileage="45" location="hyderabad"/>
                 <Card carname="Honda" price="18" carAge="1500" mileage="45" location="hyderabad"/>
-                <Card carname="Honda" price="18" carAge="1500" mileage="45" location="hyderabad"/>
-                <Card carname="Honda" price="18" carAge="1500" mileage="45" location="hyderabad"/>
+                <Card carname="Honda" price="18" carAge="1500" mileage="45" location="hyderabad"/> */}
                </div>
           </div>
     )

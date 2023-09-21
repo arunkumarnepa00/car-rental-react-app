@@ -1,6 +1,6 @@
 const registerUser=async (form)=>{
     try {
-        const  response=await fetch("http://localhost:7701/api/v1/user/register",{
+        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/register`,{
             method:"POST",
             headers:{
                 //'Content-Type':"multipart/form-data"
@@ -29,7 +29,7 @@ const registerUser=async (form)=>{
 const loginUser=async(form)=>{
     console.log(JSON.stringify(form))
     try {
-        const  response=await fetch("http://localhost:7701/api/v1/user/signin",{
+        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/signin`,{
             method:"POST",
             headers:{
                 'Content-Type':"application/json"

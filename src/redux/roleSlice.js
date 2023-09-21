@@ -7,15 +7,11 @@ const userRoleSlice = createSlice({
     },
     reducers: {
       setRole: (state,details) => {
-        console.log(details)
         state.role= details.payload.role;
-      },
-      getRole: (state)=>{
-        return state.role
       }
     }
 })
 
-export const { setRole,getRole} = userRoleSlice.actions;
+export const { setRole} = userRoleSlice.actions;
 
 export default userRoleSlice.reducer;

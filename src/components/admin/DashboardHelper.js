@@ -1,4 +1,5 @@
 import { ManageCars } from "./ManageCars";
+import { ManageUsers } from "./ManageUsers";
 
 export const DashboardHelper=(props)=>{
 
@@ -7,7 +8,7 @@ export const DashboardHelper=(props)=>{
     return(
        <div>
           {menuItem===1 && <ManageCars/>}
-          {menuItem===2 && <ManageCars/>}
+          {menuItem===2 && <ManageUsers/>}
       </div>
        )
 }

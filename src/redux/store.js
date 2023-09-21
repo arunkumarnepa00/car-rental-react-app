@@ -4,8 +4,8 @@ import roleReducer from './roleSlice';
 
 
 export default configureStore({
-  reducer: {
-    user: userReducer,
-    role: roleReducer
+  reducer: { 
+    user:userReducer,
+    role:roleReducer
   },
 });
