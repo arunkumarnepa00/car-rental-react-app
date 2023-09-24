@@ -1,50 +1,27 @@
 import { useState,useEffect } from "react";
 import { Card } from "./Card";
-import { getAllProducts } from "./apihelper/coreDbCalls";
+import {getAllProductsHome } from "./apihelper/coreDbCalls";
 
 //redux
 //import {useSelector } from 'react-redux';
 
 export const CardSlides=()=>{
-  
-    // const [curr1,setCur1]=useState('0');
-    // const [curr2,setCur2]=useState('1');
-    // const [curr3,setCur3]=useState('2');
-    // const [curr4,setCur4]=useState('3');
-    // const [maxCardCount,setMaxCC]=useState(0);
-
-    // const handleClickLeft=()=>{
-    //     if(curr1<maxCardCount){
-    //         let temp=curr1;
-    //         setCur1(temp+1);
-    //         setCur2(temp+2);
-    //         setCur3(temp+3);
-    //         setCur4(temp+4);
-    //     }   
-    // }
-    // const handleClickRight=()=>{
-    //     if(curr1>0){
-    //         let temp=curr1;
-    //         setCur1(temp-1);
-    //         setCur2(temp-2);
-    //         setCur3(temp-3);
-    //         setCur4(temp-4);
-    //     } 
-    // }
-    
+   
     const [products,setProducts]=useState();
-
+    const [loading,setLoading]=useState(false)
     //user id
     //const userId=useSelector(state=>state.user.userId);
     //console.log(products)
 
     useEffect(()=>{
+      setLoading(true)
         const getInfo=async()=>{
-          const data=await getAllProducts();
+          const data=await getAllProductsHome();
           if(data.err){
 
           }else{
             setProducts(data.msg)
+            setLoading(false)
             // setMaxCC(data.msg.length)
           }
         }
@@ -53,25 +30,24 @@ export const CardSlides=()=>{
     //console.log(products);
 
     return(
-        <>
-
-        
+        <> 
+        <div className="w-100 flex justify-center">
+          {
+          loading &&
+          <div  class="p-2 text-black rounded flex mt-2">
+            <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-spin h-5 w-5 mr-3 ...">
+              <path d="M9 3.51221C5.50442 4.74772 3 8.08143 3 12.0001C3 16.9707 7.02944 21.0001 12 21.0001C16.9706 21.0001 21 16.9707 21 12.0001C21 8.08143 18.4956 4.74772 15 3.51221" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+              Loading...
+          </div>
+          }
+        </div>       
         {
             products && products.length>0 && products.map((i,index)=>{
                return <Card poster={i.productPoster} carname={i.title} price={i.pricePerDay} carAge={i.age} mileage={i.mileage} location={i.location} 
                key={index} source='home' id={i._id}/>
             })
         }
-        
-            {/* <div className="w-100">
-                <button onClick={handleClickLeft()}>Left</button>
-                    <Card card one/> 
-                    <Card card two/>
-                    <Card card three/>
-                    <Card card four/>
-                <button onClick={handleClickRight()}>Right</button>
-            </div> */}
-        </>
-       
+        </>      
     )
 }

@@ -62,7 +62,7 @@ export const Navbar=()=>{
     console.log('navbar useeffect');
   })
 
-  //console.log(typeof userRole);
+  console.log(userRole);
 
     return(
         <>
@@ -114,6 +114,12 @@ export const Navbar=()=>{
                 </li>
                 <li className='text-white cursor-pointer font-medium hover:text-lg' 
                  onClick={()=>{
+                  navigate(`/explore/products`)
+                }}>
+                   Explore
+                </li>
+                <li className='text-white cursor-pointer font-medium hover:text-lg' 
+                 onClick={()=>{
                   navigate(`/user/${userId}/myrentals/dashboard`)
                 }}>
                    MyRentals
@@ -159,11 +165,17 @@ export const Navbar=()=>{
             {
               userId  &&
               <div>
-                <li className='text-white cursor-pointer font-medium'
+                <li className='text-white py-1 px-2 cursor-pointer font-medium'
                  onClick={()=>{
                   navigate(`/`)
                 }}>
                    Home
+                </li>
+                <li className='text-white py-1 px-2 cursor-pointer font-medium' 
+                 onClick={()=>{
+                  navigate(`/explore/products`)
+                }}>
+                   Explore
                 </li>
                 <li className='text-white py-1 px-2 cursor-pointer font-medium'
                  onClick={()=>{

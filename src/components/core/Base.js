@@ -1,22 +1,14 @@
 import {Navbar} from './Navbar';
 import { Footer } from './Footer';
-// import { Card } from './Card';
 import offerPoster from '../../assets/offer-poster.jpg';
 import { CardSlides } from './CardSlides';
 import { SearchBar } from './SearchBar';
+import { useNavigate } from 'react-router-dom';
 
-//redux
-//import {useSelector } from 'react-redux/es/hooks/useSelector';
-//import {getUser} from '../../redux/userSlice';
-// import { createSelector } from '@reduxjs/toolkit';
 
 export const Base=()=>{
 
-   // const temp=useSelector(getUser);
-    //const user=temp.payload.user.userDetails;
-    //const isLoggedIn=temp.payload.user.loggedIn;
-
-    
+    const navigate=useNavigate();
 
     return(
         <>
@@ -32,7 +24,7 @@ export const Base=()=>{
         
         <div className="flex items-center w-100 justify-center mt-5 sm:mt-1" >
           <img src={require('../../assets/poster-2.png')} width="32%" height="40%" className='' alt="poster-1"/>
-          <img src={require('../../assets/poster-6.jpg')} width="50%" height="50%" className='' alt="poster-2"/>
+          <img src={require('../../assets/audi-A3.png')} width="50%" height="50%" className='' alt="poster-2"/>
         </div>
 
         <SearchBar/>
@@ -61,19 +53,25 @@ export const Base=()=>{
                     <li className='line-through'>Trail Rides</li>
                 </div>
              </div>
-            
         </div>
         <div className='w-100 mt-5'>
             <img src={require('../../assets/poster-8.webp')} alt="poster-3"/>
         </div>
         <div className='mt-20 mx-5 mb-5 sm:mx-0 w-full'>  
-        <p className='text-xl sm:text-2xl font-semibold text-center font-sans'>Pick  your favourite car.
-        Offer ends soon⏳</p> 
-            <div className='flex flex-wrap justify-center items-center mt-5'>
-                <CardSlides/>   
+            <p className='text-xl sm:text-2xl font-semibold text-center font-sans'>Pick  your favourite car.
+            Offer ends soon⏳</p> 
+            {/* flex justify-center items-center */}
+            <div className='mt-5 carousel'>
+                <CardSlides/>
             </div>
-            <p className='text-blue-800 font-medium text-end mr-10'>View all </p>
+            <div className='w-100 mr-5 mb-20'>
+              <button className='btn-sm text-white bg-black font-medium my-2 rounded float-right'
+              onClick={()=>{
+                navigate('/explore/products')
+              }}>View all</button>
+            </div>
         </div>
+
         <Footer/>
         </>
     )

@@ -32,12 +32,13 @@ export const Card=(props)=>{
 
 
     return(
-        <>
-        <div className="m-2 border rounded shadow hover:shadow-2xl my-5 mx-4 flex flex-col justify-around h-[430px] w-[250px]">
+        <div className='carousel-item'>
+        <div className="m-2 border border-zinc-300 shrink-0 rounded shadow hover:shadow-2xl my-5 mx-4 flex flex-col justify-around">
+            <div className='h-[1/2]'>
+                <img src={img || require('../../assets/samplecar.jpg')} className="card-img-top"  alt="..." style={{width:'250px',height:'150px'}}/>
+            </div>
             
-            <img src={img || require('../../assets/samplecar.jpg')} className="card-img-top"  alt="..." width='250px' height='250px'/>
-            
-            <div className="card-body p-2 list-none space-y-2 mx-4 my-2 text-sm">
+            <div className="card-body p-2 list-none space-y-2 mx-4 my-2 text-sm h-[1/2]">
                 <li className="text-lg font-semibold text-center">{props.carname}</li>
 
                 <li className="flex">
@@ -68,19 +69,20 @@ export const Card=(props)=>{
                 <button className="p-1 bg-black text-white rounded my-1 text-center px-4 text-center"
                 onClick={()=>{
                     if(!userId) Navigate('/signin');
-                    else Navigate(`user/${userId}/product/${props.id}`);
+                    else Navigate(`/user/${userId}/product/${props.id}`);
                 }}>Rent Now</button>
                 <div className={props.source==='admin'?'flex gap-x-2':'hidden'}>
                   <button className='p-1 bg-yellow-600 text-white rounded hover:bg-yellow-700' onClick={(e)=>{
                     props.updateHandler(props.id)
                   }}
-                  >Update</button>
+                  >Edit</button>
                   <button className='p-1 bg-red-600 text-white rounded hover:bg-red-700' onClick={(e)=>{
                     handleDelete(e)
                   }}>Delete</button>
                 </div>
             </div>
         </div>
-        </>
+        </div>
+
     )
 }

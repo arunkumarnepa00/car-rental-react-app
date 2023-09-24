@@ -9,13 +9,14 @@ import { Buffer } from 'buffer';
 
 export const Rental=()=>{
     const {rentalId}=useParams();
-    
+    const {filter}=useParams();
+
     const [rental,setRental]=useState();
   
     const getDateInFormat=(unformattedDate)=>{
         const date=new Date(unformattedDate);
         
-        return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+        return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
     }
     const getNewDate=(dbDate)=>{
         const date=new Date(dbDate);
@@ -48,7 +49,7 @@ export const Rental=()=>{
         
             <div className="flex flex-col items-center">
                 <img src={`data:${rental['product'].productPoster.contentType};base64,${Buffer.from(rental['product'].productPoster.data).toString('base64')}`} alt="Product"  width='500px' height='500px'/>
-                <p className="p-2 bg-lime-500 rounded text-white">Booked</p>
+                <p className={`p-2  ${filter!=='failed'?'bg-lime-500':'bg-red-500'} rounded text-white`}>{filter!=='failed'?'Booked':'Failed'}</p>
             </div> 
             <div className="col-span-2">
                 <h1 className="text-4xl font-bold">{rental['product'].title}</h1>
@@ -84,17 +85,19 @@ export const Rental=()=>{
                     :rental['rentalStartTime']+rental['rentalDuration']
                     }:00 hrs</p>
                 </div>
-                <div className="mt-2">
+                {
+                    filter!=='failed' &&     <div className="mt-2">
                     <h1 className="text-xl font-semibold">Payment Details</h1>
                     <p>Total Paid (plus GST): {rental['totalCost']}</p>
                     <p>Order Id: {rental['orderId']}</p>
                     <p>Payment/TXN Id: {rental['paymentId']}</p>
                 </div>
+                }
                 </div>
             </div> 
          </div>
         }
-       <Footer/>
+           <Footer/>
        </>
     )
 }

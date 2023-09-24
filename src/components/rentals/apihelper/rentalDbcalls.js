@@ -32,9 +32,9 @@ const createOrder=async(details)=>{
    }
 }
 
-const getUserRentals=async(userId)=>{
+const getUserRentals=async(userId,filter)=>{
   try {
-   const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userId}/rentals`,{
+   const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userId}/rentals/${filter}`,{
       method:"GET"
      });
       const data=response.json();

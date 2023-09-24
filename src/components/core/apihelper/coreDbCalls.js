@@ -29,6 +29,21 @@ const getAllProducts=async()=>{
        console.log(error);   
     }
 }
+const getAllProductsHome=async()=>{
+    try {
+        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/products/home`,{
+            method:"GET",
+            // headers:{
+            //     'Content-Type':"application/json"
+            // }
+           });
+        const data=response.json();
+        //console.log(data)
+        return data;
+    } catch (error) {
+       console.log(error);   
+    }
+}
 
 const searchProducts=async(form)=>{
     console.log(form)
@@ -43,4 +58,4 @@ const searchProducts=async(form)=>{
     }
 }
 
-export {getUserInfo,getAllProducts,searchProducts};
+export {getUserInfo,getAllProducts,searchProducts,getAllProductsHome};

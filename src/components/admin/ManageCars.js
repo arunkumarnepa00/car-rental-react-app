@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { Card } from "../core/Card";
+import { Buffer } from 'buffer';
+
 import {createProduct} from './apihelper/adminCalls';
 import {getAllProducts} from '../core/apihelper/coreDbCalls';
-import { Buffer } from 'buffer';
-//import { updateProduct } from "./apihelper/adminCalls";
+import { updateProduct } from "./apihelper/adminCalls";
+import { getProduct } from "../rentals/apihelper/rentalDbcalls";
+
 
 //redux
 import {useSelector } from 'react-redux';
-import { getProduct } from "../rentals/apihelper/rentalDbcalls";
 
 export const ManageCars=()=>{
     
@@ -62,6 +64,7 @@ export const ManageCars=()=>{
     }
     const [error,setError]=useState('');
     const [success,setSuccess]=useState('');
+    const [loading,setLoading]=useState(false);
     const handleSubmit=async(e)=>{
         e.preventDefault();
         try {
@@ -128,7 +131,8 @@ export const ManageCars=()=>{
     //console.log(reload)
     
     //handling update
-    const [updateProduct,setUpdateProduct]=useState(false)
+    const [showUpdateProduct,setShowUpdateProduct]=useState(false);
+    const [tempUpdateHolder,setTempUpdateHolder]=useState();
     const handleUpdate=async(updateProdId)=>{
       //console.log(updateProdId)
       const data=await getProduct(updateProdId);
@@ -136,8 +140,9 @@ export const ManageCars=()=>{
       if(data.err){
          
       }else{
-        setUpdateProduct(true)
+        setShowUpdateProduct(true)
         setShowAddForm(true)
+        setTempUpdateHolder(data.msg)
         setForm({
         title:data.msg.title,
         description:data.msg.description,
@@ -147,8 +152,7 @@ export const ManageCars=()=>{
         pricePerDay:data.msg.pricePerDay,
         gstTax:data.msg.gstTax,
         location:data.msg.location, 
-        productPoster:{filepath:data.msg.productPoster.data,
-        mimetype:data.msg.productPoster.contentType},
+        productPoster:null,
         numberOfPieces:data.msg.numberOfPieces,
         numberOfPiecesAvailable:data.msg.numberOfPiecesAvailable,
         available:data.msg.available?'YES':'NO'
@@ -162,25 +166,40 @@ export const ManageCars=()=>{
     }
     //console.log(form)
     const handleUpdateButton=async(e)=>{
+      console.log('handleUpdateButton')
       e.preventDefault();
       try{
             const formData = new FormData();
             for (const key in form) {
-                const element = form[key];
+              const element = form[key];
+              if(element!==tempUpdateHolder[key] && key!=='productPoster'){
                 if(key==='available'){
-                    if(element==='YES') formData.append(key,true)
-                    else formData.append(key,false)
-                }else{
-                    formData.append(key,element);
+                  if(element==='YES') formData.append(key,true)
+                  else formData.append(key,false)
+                }
+                else{
+                  formData.append(key,element);
                 } 
+              }
+              if(key==='productPoster' && form.productPoster!==null){
+                formData.append(key,element);
+              }
             }
-            const data=await updateProduct(formData,userId);
+            const data=await updateProduct(formData,userId,tempUpdateHolder._id);
             if(data && data.err){
                 setSuccess('');
                 setError(data.err);
             }else{
-                setForm({
-                    title:'',
+               
+                setError('');
+                setSuccess(`${data.msg.title} is Updated`);
+                setTimeout(() => {
+                    setSuccess('');
+                }, 5000);
+                setShowUpdateProduct(false)
+                setShowAddForm(false)
+                setTempUpdateHolder(null)
+                setForm({title:'',
                     description:'',
                     mileage:0,
                     age:0,
@@ -193,14 +212,8 @@ export const ManageCars=()=>{
                     numberOfPieces:0,
                     numberOfPiecesAvailable:0,
                     available:true
-                  })
-                setError('');
-                setSuccess(`${data.msg.title} is Updated`);
-                setTimeout(() => {
-                    setSuccess('');
-                }, 8000);
+                  });
           }
-
       }
       catch (error) {
             console.log(error)
@@ -210,6 +223,7 @@ export const ManageCars=()=>{
     //loading products
     const [products,setProducts]=useState()
     useEffect(()=>{
+      setLoading(true)
         const getInfo=async()=>{
           const data=await getAllProducts();
           if(data.err){
@@ -217,6 +231,7 @@ export const ManageCars=()=>{
           }else{
             setProducts(data.msg)
             setShowAddForm(false)
+            setLoading(false)
           }
         }
         getInfo();
@@ -236,6 +251,13 @@ export const ManageCars=()=>{
                     {success && 
                     <div className="bg-green-400 p-2 text-center text-white rounded w-fit">
                     <p>{success}</p>
+                    </div>}
+                    {loading &&
+                    <div  class="bg-zinc-700 p-2 text-center text-white rounded flex">
+                      <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-spin h-5 w-5 mr-3 ...">
+                        <path d="M9 3.51221C5.50442 4.74772 3 8.08143 3 12.0001C3 16.9707 7.02944 21.0001 12 21.0001C16.9706 21.0001 21 16.9707 21 12.0001C21 8.08143 18.4956 4.74772 15 3.51221" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                        Loading...
                     </div>}
                 </div>
 
@@ -342,12 +364,12 @@ export const ManageCars=()=>{
                     </div> */}
                     <button className="rounded bg-lime-600 text-white p-2 mt-3 font-semibold"
                     onClick={(e)=>{
-                      if(updateProduct){
+                      if(showUpdateProduct){
                         handleUpdateButton(e)
                       }else{
                         handleSubmit(e)
                       }
-                    }}>{updateProduct?'Update':'Submit'}</button>
+                    }}>{showUpdateProduct?'Update':'Submit'}</button>
                </div>}
                <div className="mt-5 flex flex-wrap">
                 {

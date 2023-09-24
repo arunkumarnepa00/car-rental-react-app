@@ -33,10 +33,10 @@ const deleteProduct=async(productId,userId)=>{
     }
 }
 
-const updateProduct=async(form,userId)=>{
+const updateProduct=async(form,userId,productId)=>{
     console.log(form)
     try {
-        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/${userId}/update/product`,{
+        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/${userId}/update/product/${productId}`,{
             method:"PUT",
             headers:{
                 //'Content-Type':"multipart/form-data"

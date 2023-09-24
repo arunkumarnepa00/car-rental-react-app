@@ -19,6 +19,7 @@ export const Signin = () => {
     password:''
   })
   const [error,setError]=useState('');
+  const [loading,setLoading]=useState(false);
 
   const handleChange=(e)=>{
     const field=e.target.id;
@@ -29,11 +30,14 @@ export const Signin = () => {
 
   const navigate=useNavigate();
   const handleSubmit=async(e)=>{
+    setLoading(true)
     e.preventDefault();
     const data=await loginUser(form);
     if(data.err){
+      setLoading(false);
        setError(data.err);
     }else{
+      setLoading(false);
       setError(false);
       localStorage.setItem("token", data.token);
       localStorage.setItem("role",data.user.role);
@@ -52,6 +56,15 @@ export const Signin = () => {
       {error && 
         <div className="bg-red-400 p-2 text-center text-white rounded w-fit">
         <p>{error}</p>
+        </div>
+      }
+      {
+        loading &&
+        <div  class="bg-zinc-700 p-2 text-center text-white rounded flex">
+          <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-spin h-5 w-5 mr-3 ...">
+            <path d="M9 3.51221C5.50442 4.74772 3 8.08143 3 12.0001C3 16.9707 7.02944 21.0001 12 21.0001C16.9706 21.0001 21 16.9707 21 12.0001C21 8.08143 18.4956 4.74772 15 3.51221" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+            Loading...
         </div>
       }
       </div>

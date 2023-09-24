@@ -32,9 +32,9 @@ export const UserNavBar=(props)=>{
 
     return (
     <>
-     <li className='w-[25px] bg-cover'>
+     <li className=''>
         <img src={img || require('../../assets/EmptyProfileDp.jpg')}
-        alt='user-profile' id="user-dp" className=''/>
+        alt='user-profile' id="user-dp" className='rounded-full' style={{width:'35px',height:'35px'}}/>
       </li>
     </>
     )
