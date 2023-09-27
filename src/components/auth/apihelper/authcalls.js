@@ -27,7 +27,7 @@ const registerUser=async (form)=>{
 }
 
 const loginUser=async(form)=>{
-    console.log(JSON.stringify(form))
+    //console.log(JSON.stringify(form))
     try {
         const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/signin`,{
             method:"POST",

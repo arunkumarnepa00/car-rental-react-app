@@ -84,7 +84,7 @@ export const ProductView=()=>{
             }  
         }
     }
-    console.log(payable)
+    //console.log(payable)
 
 
       //checkout visibility
@@ -160,14 +160,14 @@ export const ProductView=()=>{
             if(data.err){
 
             }else{
-                console.log(data)
+                //console.log(data)
                 setUser(data.user)
             }
         }
         getInfo2(userId)
 
     },[productId,userId])
-    console.log(user)
+    //console.log(user)
     
     //console.log(window)
 
@@ -185,7 +185,7 @@ export const ProductView=()=>{
         </div> */}
         {/* {checkout && <Checkout productId={product._id} price={payable.totalPayable}/>} */}
         </div>
-        <div className="mt-5 grid grid-cols-3 gap-2 mb-10">
+        <div className="mt-5 lg:grid lg:grid-cols-3 lg:gap-2 mb-10">
             <div className="flex flex-col items-center">
                 <img src={img} alt="Product"  width='500px' height='500px'/>
                 <button className="bg-black text-white font-semibold mt-5 p-2 rounded w-1/3 hover:bg-lime-500"
@@ -193,7 +193,7 @@ export const ProductView=()=>{
                     handleCheckout()
                 }}>Book Now</button>
             </div>
-            <div className="col-span-2">
+            <div className="m-5 lg:m-0 lg:col-span-2">
                 <h1 className="text-4xl font-bold">{product.title}</h1>
                 <p className="text-xl">{product.description}</p>
                 
@@ -213,6 +213,8 @@ export const ProductView=()=>{
                 <div className="mt-5">
                     <h1 className="text-xl font-semibold">Pricing</h1>
                     <div className="mt-2 space-x-2">
+                    
+                    <div className="flex flex-col lg:inline">
                     <label htmlFor="rentDate">Date</label>
                     <input type="date" id="rentDate" min={today} value={pricing.rentDate} onChange={(e)=>{
                         handleChange(e);
@@ -249,6 +251,7 @@ export const ProductView=()=>{
                      onChange={(e)=>{
                             handleChange(e)
                         }}/>
+                    </div>
                     </div>
                     <div className="spcae-y-2 mt-2">
                         <p>Price = Rs.{pricing.category==='hours'?product.pricePerHour:product.pricePerDay}</p>

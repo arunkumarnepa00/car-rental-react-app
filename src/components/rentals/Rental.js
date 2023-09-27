@@ -44,14 +44,14 @@ export const Rental=()=>{
        <Navbar/>
     
         {rental && Object.keys(rental).length>0 &&
-        <div className="mt-5 grid grid-cols-3 gap-2 mb-10">
+        <div className="mt-5 lg:grid lg:grid-cols-3 lg:gap-2 mb-10">
         
         
             <div className="flex flex-col items-center">
                 <img src={`data:${rental['product'].productPoster.contentType};base64,${Buffer.from(rental['product'].productPoster.data).toString('base64')}`} alt="Product"  width='500px' height='500px'/>
                 <p className={`p-2  ${filter!=='failed'?'bg-lime-500':'bg-red-500'} rounded text-white`}>{filter!=='failed'?'Booked':'Failed'}</p>
             </div> 
-            <div className="col-span-2">
+            <div className="lg:col-span-2 m-5 sm:m-0">
                 <h1 className="text-4xl font-bold">{rental['product'].title}</h1>
                 <p className="text-xl">{rental['product'].description}</p>
                 

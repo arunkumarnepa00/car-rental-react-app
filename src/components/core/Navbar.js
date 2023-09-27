@@ -55,14 +55,14 @@ export const Navbar=()=>{
     setNavUserId(user);
   }
   useEffect(()=>{
-    console.log('---------------------')
+    //console.log('---------------------')
     const user=authentication();
     const role=localStorage.getItem('role');
     setProperties(user,role);
-    console.log('navbar useeffect');
+    //console.log('navbar useeffect');
   })
 
-  console.log(userRole);
+  //console.log(userRole);
 
     return(
         <>
@@ -73,7 +73,7 @@ export const Navbar=()=>{
               }}>
                 <img src={require('../../assets/logo.png')} width='50px' alt="logo"/>
               </li>
-              <h1 className="text-white font-semibold text-lg my-auto">Car Rentals</h1>
+              <h1 className="text-white font-semibold text-xl my-auto">Car Rentals</h1>
             </div>
             {/* mobile view hamburger menu */}
             <div className={emenu?'hidden':'sm:hidden'} onClick={()=>{
@@ -152,14 +152,14 @@ export const Navbar=()=>{
           {
               !userId && 
               <div>
-              <li className="rounded-md bg-black w-fit hover:bg-white text-white hover:text-black py-1 px-2 font-semibold cursor-pointer"
+              <li className="rounded-md text-lg bg-black w-fit hover:bg-white text-white hover:text-black py-1 px-2 font-semibold cursor-pointer"
                 onClick={()=>{
                   navigate('/signin');
-                }}>login</li>
-                <li className="rounded-md bg-black w-fit hover:bg-white text-white hover:text-black py-1 px-2 font-semibold cursor-pointer"
+                }}>Login</li>
+                <li className="rounded-md text-lg bg-black w-fit hover:bg-white text-white hover:text-black py-1 px-2 font-semibold cursor-pointer"
                 onClick={()=>{
                   navigate('/signup');
-                }}>signup</li>
+                }}>Signup</li>
                 </div>
             }
             {

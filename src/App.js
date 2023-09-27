@@ -34,9 +34,7 @@ function App() {
        <Route path="/admin" element={<PrivateRoutes/>}>
          <Route path="dashboard" element={<AdminDashboard/>}/>
        </Route>
-       <Route>
-         <Route path="/explore/products" element={<Explore/>}/>
-       </Route>
+       <Route path="/explore/products" element={<Explore/>}/>
        <Route path="/user/:userId/myrentals" element={<UserPrivateRoutes/>}>
          <Route path="dashboard" element={<Myrentals/>}/>
        </Route>

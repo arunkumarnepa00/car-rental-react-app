@@ -6,15 +6,15 @@ export const UserPrivateRoutes=()=>{
     //console.log("inside user private routes");
 
     const userId=authentication();
+   
     //const userId=useSelector(state=>state.user.userId);   
     //console.log(userId)
 
     //console.log("after userid fetch");
     
-
     return(
        <div>
-       {(userId)?<Outlet />:''}
+       {!(userId==='expired' || userId===null)?<Outlet />:''}
        </div>
     )
 }

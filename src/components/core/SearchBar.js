@@ -4,6 +4,8 @@ import { Card } from "./Card";
 
 export const SearchBar=()=>{
 
+    const [loading,setLoading]=useState(false)
+
     //search
     const [searchForm,setSearchForm]=useState({
         location:'',
@@ -24,13 +26,15 @@ export const SearchBar=()=>{
 
     const [products,setProducts]=useState();
     const handleSearch=async(e)=>{
+        setLoading(true)
         e.preventDefault();
         const data=await searchProducts(searchForm);
         if(data.err){
-
+            setLoading(false)
         }else{
             setProducts(data.msg)
             setShowSearchResults(true);
+            setLoading(false)
         }
     }
     //console.log(products);
@@ -56,10 +60,10 @@ export const SearchBar=()=>{
                     <option value="hours">Hourly</option>
                     <option value="days">Daily</option>
             </select>
-            <input type="number" id="time" name="time" step="1" placeholder="hrs/days" className='' value={searchForm.time} min='1'
+            {/* <input type="number" id="time" name="time" step="1" placeholder="hrs/days" className='' value={searchForm.time} min='1'
                 onChange={(e)=>{
                     handleChange(e)
-                }}/>
+                }}/> */}
             <button className='rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600'
                 onClick={(e)=>{
                     handleSearch(e)
@@ -67,7 +71,17 @@ export const SearchBar=()=>{
                     SEARCH
             </button>
         </div>
-     
+        <div className="w-100 flex justify-center">
+          {
+          loading &&
+          <div  className="p-2 text-black rounded flex mt-2">
+            <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="animate-spin h-5 w-5 mr-3 ...">
+              <path d="M9 3.51221C5.50442 4.74772 3 8.08143 3 12.0001C3 16.9707 7.02944 21.0001 12 21.0001C16.9706 21.0001 21 16.9707 21 12.0001C21 8.08143 18.4956 4.74772 15 3.51221" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+              Loading...
+          </div>
+          }
+        </div> 
         <div className="mt-4 bg-lime-500 flex flex-wrap  justify-center gap-x-2">
         <div className={showSearchResults?'absolute right-0 p-2':'hidden'}  onClick={()=>{
               handleCloseSeachResults();

@@ -57,11 +57,11 @@ export const Base=()=>{
         <div className='w-100 mt-5'>
             <img src={require('../../assets/poster-8.webp')} alt="poster-3"/>
         </div>
-        <div className='mt-20 mx-5 mb-5 sm:mx-0 w-full'>  
-            <p className='text-xl sm:text-2xl font-semibold text-center font-sans'>Pick  your favourite car.
+        <div className='mt-20 mb-5 w-full'>  
+            <p className='text-lg sm:text-2xl font-semibold text-center font-sans'>Pick  your favourite car.
             Offer ends soon⏳</p> 
             {/* flex justify-center items-center */}
-            <div className='mt-5 carousel'>
+            <div className='mt-5 flex flex-wrap justify-center lg:inherit lg:carousel '>
                 <CardSlides/>
             </div>
             <div className='w-100 mr-5 mb-20'>
