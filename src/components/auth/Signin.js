@@ -31,6 +31,7 @@ export const Signin = () => {
   const navigate=useNavigate();
   const handleSubmit=async(e)=>{
     setLoading(true)
+    setError(false)
     e.preventDefault();
     const data=await loginUser(form);
     if(data.err){

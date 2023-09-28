@@ -45,9 +45,9 @@ export const RentalCategoryWise=()=>{
           </div>
           }
         </div>
-        {Object.keys(rentals) && <div className="mt-5 w-100 flex justify-center font-bold">
+        {Object.keys(rentals).length===0 && <div className="mt-5 w-100 flex justify-center font-bold">
           No Rentals to Display
-          </div>}
+        </div>}
         <div className="flex flex-wrap justify-center m-5 gap-2 mb-20">
         {
         rentals && rentals.length>0 && rentals.map((item,index)=>{
