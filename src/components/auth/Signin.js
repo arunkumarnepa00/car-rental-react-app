@@ -68,9 +68,9 @@ export const Signin = () => {
         </div>
       }
       </div>
-      <form className="m-5 p-5">
+      <form className="m-5 p-5 mb-20">
         <div className="space-y-12">
-          <div className="pb-6">
+          <div className="pb-2">
             <h2 className="text-xl font-bold leading-7 text-gray-900">
               Enter Details
             </h2>
@@ -118,6 +118,11 @@ export const Signin = () => {
                   />
                   <p className="text-blue-800 text-sm mt-2">Forgot Password</p>
                 </div>
+                <div className="mt-2">
+                  <p className="text-sm">Not a Member ? <span className="text-blue-800 cursor-pointer" onClick={()=>{
+                    navigate('/signup')
+                  }}>Signup</span></p>
+                </div>
               </div>
             </div>
           </div>
@@ -133,8 +138,10 @@ export const Signin = () => {
           </div>
         </div>
       </form>
+
+      <div className="fixed bottom-0 left-0 right-0">
       <Footer />
-     
+      </div>
     </>
   );
 };
