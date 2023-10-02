@@ -263,7 +263,7 @@ export const ManageCars=()=>{
 
                <button className="p-2 bg-lime-600 text-white rounded" onClick={(e)=>{
                 handleAdd(e)
-               }}>Add Item</button>
+               }}>Add product</button>
                <div className={showAddForm?'float-right mr-5 bg-black rounded-full p-1 cursor-pointer':'hidden'}  onClick={(e)=>{
                     handleClose(e)
                     }}>

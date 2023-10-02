@@ -19,6 +19,7 @@ import { UserPrivateRoutes } from './components/rentals/UserPrivateRoutes';
 import { Explore } from './components/core/Explore';
 import { AuthPageAccessCheck } from './components/auth/AuthPageAccessCheck';
 import { RentalCategoryWise } from './components/rentals/RentalCategoryWise';
+import { Profile } from './components/profile/Profile';
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
        </Route>
       <Route path="/user/:userId/product" element={<UserPrivateRoutes/>}>
          <Route path=":productId" element={<ProductView/>}/>
+      </Route>
+      <Route path="/user/:userId/profile" element={<UserPrivateRoutes/>}>
+         <Route path="" element={<Profile/>}/>
       </Route>
      </Routes>
    </Router>

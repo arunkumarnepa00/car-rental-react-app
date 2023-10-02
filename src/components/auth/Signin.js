@@ -40,6 +40,7 @@ export const Signin = () => {
     }else{
       setLoading(false);
       setError(false);
+      //console.log(data)
       localStorage.setItem("token", data.token);
       localStorage.setItem("role",data.user.role);
    

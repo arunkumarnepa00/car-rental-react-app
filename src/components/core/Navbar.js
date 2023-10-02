@@ -75,6 +75,8 @@ export const Navbar=()=>{
               </li>
               <h1 className="text-white font-semibold text-xl my-auto">Car Rentals</h1>
             </div>
+            {/* ------------------------------------------ */}
+            {/* mobile view */}
             {/* mobile view hamburger menu */}
             <div className={emenu?'hidden':'sm:hidden'} onClick={()=>{
               handleMenu();
@@ -90,6 +92,8 @@ export const Navbar=()=>{
                  <path d="M3 3.32001L21 21.32" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
+            {/* mobile view ends */}
+            {/* ------------------------------------ */}
             {/* normal menu starts*/}
             {
               !userId &&  
@@ -148,6 +152,11 @@ export const Navbar=()=>{
           </div> 
           
           {/* mobile view menu starts*/}
+          {userId && 
+            <div className='absolute top-[-10px] right-12   sm:hidden'>
+              <UserNavBar userId={userId} />
+            </div>
+          }
           <div className={emenu?'w-100 bg-black list-none sm:hidden py-2 px-4 flex flex-col justify-center':'hidden'}>
           {
               !userId && 
