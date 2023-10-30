@@ -240,7 +240,7 @@ export const ManageCars=()=>{
     
  
     return(
-        <div className="mt-2">
+        <div className="mt-2 w-100">
                <h1 className="font-bold text-xl text-center">Manage Cars</h1>
 
                <div className="w-100 flex justify-center">
@@ -261,9 +261,9 @@ export const ManageCars=()=>{
                     </div>}
                 </div>
 
-               <button className="p-2 bg-lime-600 text-white rounded" onClick={(e)=>{
+               <button className="p-2 bg-lime-600 hover:bg-lime-500 text-white rounded ml-5" onClick={(e)=>{
                 handleAdd(e)
-               }}>Add product</button>
+               }}>+ Add product</button>
                <div className={showAddForm?'float-right mr-5 bg-black rounded-full p-1 cursor-pointer':'hidden'}  onClick={(e)=>{
                     handleClose(e)
                     }}>
@@ -371,7 +371,7 @@ export const ManageCars=()=>{
                       }
                     }}>{showUpdateProduct?'Update':'Submit'}</button>
                </div>}
-               <div className="mt-5 flex flex-wrap">
+               <div className="mt-5 flex flex-wrap justify-center">
                 {
                   products && products.length>0 && products.map((i,index)=>{
                     return (

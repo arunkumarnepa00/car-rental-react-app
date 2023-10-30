@@ -51,4 +51,21 @@ const updateProduct=async(form,userId,productId)=>{
     }
 } 
 
-export {createProduct,deleteProduct,updateProduct};
+
+const getAllUsers=async(userId)=>{
+    try {
+        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/${userId}/users`,{
+            method:"GET",
+            headers:{
+                //'Content-Type':"multipart/form-data"
+               // 'Content-Type':"application/json"
+            }
+           });
+        const data=response.json();
+        return data; 
+    } catch (error) {
+       console.log(error);   
+    }
+}
+
+export {createProduct,deleteProduct,updateProduct,getAllUsers};
