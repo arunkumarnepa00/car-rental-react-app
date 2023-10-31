@@ -44,7 +44,7 @@ export const AdminDashboard=()=>{
                 <li className="border-b-2  border-slate-400 font-bold p-2 cursor-pointer">Manage Bookings</li>
                 <li className="border-b-2  border-slate-400  font-bold p-2 cursor-pointer">Site Traffic</li>
         </div>
-        <div className="w-100">
+        <div className="w-100 mb-20">
             <DashboardHelper item={menuItem}/>
         </div>
         {/* <div className="sm:grid sm:grid-cols-4 sm:gap-4 h-fit ">
@@ -69,7 +69,9 @@ export const AdminDashboard=()=>{
             </div>
         </div> */}
     
-       <Footer/>
+        <div className="fixed bottom-0 left-0 right-0">
+            <Footer/>
+        </div>
        </>
 
     )

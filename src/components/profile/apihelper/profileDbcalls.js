@@ -2,7 +2,7 @@ const updateDp=async(form,userId)=>{
     //console.log(form)
     try {
         const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userId}/update/dp`,{
-            method:"POST",
+            method:"PUT",
             headers:{
                 //'Content-Type':"multipart/form-data"
                // 'Content-Type':"application/json"
@@ -20,7 +20,7 @@ const updateUserDetails=async(form,userId)=>{
     console.log(form)
     try {
         const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userId}/update/details`,{
-            method:"POST",
+            method:"PUT",
             headers:{
                 //'Content-Type':"multipart/form-data"
                'Content-Type':"application/json"

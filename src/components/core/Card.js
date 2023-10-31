@@ -74,6 +74,8 @@ export const Card=(props)=>{
                 <div className={props.source==='admin'?'flex gap-x-2':'hidden'}>
                   <button className='p-1 bg-yellow-600 text-white rounded hover:bg-yellow-700' onClick={(e)=>{
                     props.updateHandler(props.id)
+                    document.body.scrollTop=0;
+                    document.documentElement.scrollTop = 0;
                   }}
                   >Edit</button>
                   <button className='p-1 bg-red-600 text-white rounded hover:bg-red-700' onClick={(e)=>{
