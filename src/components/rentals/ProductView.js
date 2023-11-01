@@ -215,11 +215,11 @@ export const ProductView=()=>{
                     <div className="mt-2 space-x-2">
                     
                     <div className="flex flex-col lg:inline">
-                    <label htmlFor="rentDate">Date</label>
+                    <label htmlFor="rentDate">Date: </label>
                     <input type="date" id="rentDate" min={today} value={pricing.rentDate} onChange={(e)=>{
                         handleChange(e);
                     }}/>
-                    <label htmlFor="rentTime">Time</label>
+                    <label htmlFor="rentTime">Time: </label>
                     <select type='dropdown' name="rentTime" id="rentTime" onChange={(e)=>{
                         handleChange(e);
                     }}>

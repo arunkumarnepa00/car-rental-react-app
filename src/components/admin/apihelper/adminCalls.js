@@ -67,5 +67,37 @@ const getAllUsers=async(userId)=>{
        console.log(error);   
     }
 }
+const getSearchUsers=async(userId,searchStr)=>{
+    try {
+        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/${userId}/search/users/${searchStr}`,{
+            method:"GET",
+            headers:{
+                //'Content-Type':"multipart/form-data"
+               // 'Content-Type':"application/json"
+            }
+           });
+        const data=response.json();
+        return data; 
+    } catch (error) {
+       console.log(error);   
+    }
+}
 
-export {createProduct,deleteProduct,updateProduct,getAllUsers};
+const getAllRentals=async(userId,searchStr)=>{
+    try {
+        const  response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/${userId}/rentals`,{
+            method:"GET",
+            headers:{
+                //'Content-Type':"multipart/form-data"
+               // 'Content-Type':"application/json"
+            }
+           });
+        const data=response.json();
+        return data; 
+    } catch (error) {
+       console.log(error);   
+    }
+}
+
+
+export {createProduct,deleteProduct,updateProduct,getAllUsers,getSearchUsers,getAllRentals};

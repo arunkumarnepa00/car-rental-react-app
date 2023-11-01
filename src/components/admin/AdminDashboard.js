@@ -18,7 +18,7 @@ export const AdminDashboard=()=>{
          document.body.style.overflow='hidden';
        }}>
        <svg fill="#000000" width="25px" height="25px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0h4v4H0V0zm0 6h4v4H0V6zm0 6h4v4H0v-4zM6 0h4v4H6V0zm0 6h4v4H6V6zm0 6h4v4H6v-4zm6-12h4v4h-4V0zm0 6h4v4h-4V6zm0 6h4v4h-4v-4z" fill-rule="evenodd"/>
+            <path d="M0 0h4v4H0V0zm0 6h4v4H0V6zm0 6h4v4H0v-4zM6 0h4v4H6V0zm0 6h4v4H6V6zm0 6h4v4H6v-4zm6-12h4v4h-4V0zm0 6h4v4h-4V6zm0 6h4v4h-4v-4z" fillRule="evenodd"/>
         </svg>
        </button>
        
@@ -41,8 +41,14 @@ export const AdminDashboard=()=>{
                  onClick={(e)=>{
                     setmenuItem(2)
                 }}>Manage Users</li>
-                <li className="border-b-2  border-slate-400 font-bold p-2 cursor-pointer">Manage Bookings</li>
-                <li className="border-b-2  border-slate-400  font-bold p-2 cursor-pointer">Site Traffic</li>
+                <li className="border-b-2  border-slate-400 font-bold p-2 cursor-pointer"
+                onClick={(e)=>{
+                    setmenuItem(3)
+                }}>Manage Bookings</li>
+                <li className="border-b-2  border-slate-400  font-bold p-2 cursor-pointer"
+                 onClick={(e)=>{
+                    setmenuItem(4)
+                }}>Site Traffic</li>
         </div>
         <div className="w-100 mb-20">
             <DashboardHelper item={menuItem}/>

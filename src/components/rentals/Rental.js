@@ -44,7 +44,7 @@ export const Rental=()=>{
        <Navbar/>
     
         {rental && Object.keys(rental).length>0 &&
-        <div className="mt-5 lg:grid lg:grid-cols-3 lg:gap-2 mb-10">
+        <div className="mt-5 lg:grid lg:grid-cols-3 lg:gap-2 mb-20">
         
         
             <div className="flex flex-col items-center">
@@ -89,8 +89,8 @@ export const Rental=()=>{
                     filter!=='failed' &&     <div className="mt-2">
                     <h1 className="text-xl font-semibold">Payment Details</h1>
                     <p>Total Paid (plus GST): {rental['totalCost']}</p>
-                    <p>Order Id: {rental['orderId']}</p>
-                    <p>Payment/TXN Id: {rental['paymentId']}</p>
+                    <p>Order(Booking) ID: {rental['orderId']}</p>
+                    <p>Payment(Transaction) ID: {rental['paymentId']}</p>
                 </div>
                 }
                 </div>
