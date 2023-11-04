@@ -42,10 +42,9 @@ export const Rental=()=>{
     return(
        <>
        <Navbar/>
-    
+
         {rental && Object.keys(rental).length>0 &&
         <div className="mt-5 lg:grid lg:grid-cols-3 lg:gap-2 mb-20">
-        
         
             <div className="flex flex-col items-center">
                 <img src={`data:${rental['product'].productPoster.contentType};base64,${Buffer.from(rental['product'].productPoster.data).toString('base64')}`} alt="Product"  width='500px' height='500px'/>
@@ -97,6 +96,7 @@ export const Rental=()=>{
             </div> 
          </div>
         }
+
 
       <div className="fixed bottom-0 left-0 right-0">
         <Footer/>

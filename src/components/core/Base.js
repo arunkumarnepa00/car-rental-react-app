@@ -61,7 +61,7 @@ export const Base=()=>{
             <p className='text-lg sm:text-2xl font-semibold text-center font-sans'>Pick  your favourite car.
             Offer ends soon⏳</p> 
             {/* flex justify-center items-center */}
-            <div className='mt-5 flex flex-wrap justify-center lg:inherit lg:carousel '>
+            <div className='mt-5 flex flex-wrap justify-center'>
                 <CardSlides/>
             </div>
             <div className='w-100 mr-5 mb-20'>
